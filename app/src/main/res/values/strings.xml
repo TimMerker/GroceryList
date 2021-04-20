@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Grocery list</string>
+    <string name="delete_all">Delete all</string>
+    <string name="_1" translatable="false">1</string>
+    <string name="add">Add</string>
+    <string name="item">Item</string>
+</resources>
