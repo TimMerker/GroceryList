@@ -1,6 +1,7 @@
 package com.example.einkaufsliste30;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 public class ItemsRecViewAdapter extends RecyclerView.Adapter<ItemsRecViewAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Item> items;
+    public final String sharedPreferencesKey = "grocery list";
+
 
     public ItemsRecViewAdapter(Context context) {
         this.context = context;
@@ -41,6 +46,7 @@ public class ItemsRecViewAdapter extends RecyclerView.Adapter<ItemsRecViewAdapte
                 Item item = items.get(holder.getAdapterPosition());
                 item.setCounter(item.getCounter()+1);
                 holder.counter.setText(String.valueOf(item.getCounter()));
+                saveData();
             }
         });
         holder.minusButton.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +62,7 @@ public class ItemsRecViewAdapter extends RecyclerView.Adapter<ItemsRecViewAdapte
                     item.setCounter(item.getCounter()-1);
                     holder.counter.setText(String.valueOf(item.getCounter()));
                 }
+                saveData();
             }
         });
         holder.deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -65,10 +72,12 @@ public class ItemsRecViewAdapter extends RecyclerView.Adapter<ItemsRecViewAdapte
                 Toast.makeText(context, item.getName()+" deleted.", Toast.LENGTH_SHORT).show();
                 items.remove(holder.getAdapterPosition());
                 notifyItemRemoved(holder.getAdapterPosition());
+                saveData();
             }
         });
         return holder;
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
@@ -101,5 +110,13 @@ public class ItemsRecViewAdapter extends RecyclerView.Adapter<ItemsRecViewAdapte
             deleteButton = itemView.findViewById(R.id.deleteButton);
             parent = itemView.findViewById(R.id.parent);
         }
+    }
+    private void saveData() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("shared preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(items);
+        editor.putString(sharedPreferencesKey, json);
+        editor.apply();
     }
 }
