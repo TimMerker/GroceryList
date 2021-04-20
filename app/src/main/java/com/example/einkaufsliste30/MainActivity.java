@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 items.clear();
                 adapter.notifyDataSetChanged();
                 Toast.makeText(this, "All items deleted...",Toast.LENGTH_SHORT).show();
+                saveData();
                 break;
         }
         return true;
