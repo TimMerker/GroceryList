@@ -7,4 +7,4 @@ One can also remove specific items from the list, or increase or decrease the qu
 I hope you like it.
 
 ![Screenshot_GroceryList](https://user-images.githubusercontent.com/77891829/167960303-b3a3a039-7d29-4e90-a7ab-53c11a5f926e.png)
-![GroceryList](https://user-images.githubusercontent.com/77891829/120484745-a8979200-c3b3-11eb-8f4c-107a3782444f.png)
+
